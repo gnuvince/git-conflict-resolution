@@ -1,22 +1,53 @@
 #!/bin/bash
 
-PLAYGROUND_DIR="/tmp/playground"
+set -o errexit
+
+: "${PLAYGROUND_DIR:=/tmp/playground}"
+: "${DEMO_DIR:=$PLAYGROUND_DIR/demo}"
 
 rm -rf "$PLAYGROUND_DIR"
-mkdir -p "$PLAYGROUND_DIR"
-mkdir -p "$PLAYGROUND_DIR"/origin
-git init --bare "$PLAYGROUND_DIR"/origin
-git clone "$PLAYGROUND_DIR"/origin "$PLAYGROUND_DIR"/alice
-git clone "$PLAYGROUND_DIR"/origin "$PLAYGROUND_DIR"/bob
+mkdir -p "$DEMO_DIR"
 
-cat >"$PLAYGROUND_DIR"/alice <<EOF
+(
+    pushd "$DEMO_DIR"
+    mkdir -p origin
+    git init --bare origin
+    git clone origin alice
+    git clone origin bob
+    popd
+)
+
+(
+    pushd "$DEMO_DIR"/alice
+    cat >>"$DEMO_DIR"/alice/.git/config <<EOF
 [user]
         name = Alice
         email = alice@company.com
 EOF
+    popd
+)
 
-cat >"$PLAYGROUND_DIR"/bob <<EOF
+(
+    pushd "$DEMO_DIR"/bob
+    cat >>"$DEMO_DIR"/bob/.git/config <<EOF
 [user]
         name = Bob
         email = bob@company.com
 EOF
+    popd
+)
+
+cp assets/main.py "$DEMO_DIR"/alice/
+(
+    pushd "$DEMO_DIR"/alice/
+    git add main.py
+    git commit -m "add main.py"
+    git push origin master
+    popd
+)
+
+(
+    pushd "$DEMO_DIR"/bob/
+    git pull --rebase
+    popd
+)
