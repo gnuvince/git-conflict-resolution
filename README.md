@@ -1,9 +1,9 @@
 <!--
 
 * [X] How to re-organize small commits into larger ones
-* [ ] Reminder to rebase on top of master often
-* [ ] "Clean" conflict where I want either my version or the remote's version
-* [ ] "Clean" conflict where I want both my version and the remote's version
+* [X] Reminder to rebase on top of master often
+* [X] "Clean" conflict where I want either my version or the remote's version
+* [X] "Clean" conflict where I want both my version and the remote's version
 * [ ] "Dirty" conflict where I want to keep some of my stuff and some of the remote's stuff
 
 -->
@@ -65,3 +65,25 @@ Demo
   6. CONFLICT!
   7. Fix the conflict with meld (pick Alice's version)
   8. git rebase --continue
+
+
+3. Clean conflict — Keep both versions
+--------------------------------------
+
+  **Bob**:
+
+  0. Start a branch
+  1. Add function `count_lines()` at the end of main.py
+  2. Commit, merge, push
+
+  **Alice**:
+
+  0. Start a branch
+  1. Add function `count_chars()` at the end of main.py
+  2. Commit
+  3. Checkout master, git pull
+  4. Checkout branch, git rebase master
+  5. CONFLICT
+  6. Show that using meld we can't keep both changes
+  7. Show how to fix conflict in text editor
+  8. git add main.py && git rebase --continue
