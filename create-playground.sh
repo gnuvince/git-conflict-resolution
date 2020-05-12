@@ -146,7 +146,37 @@ EOF
     )
 }
 
+prepare_exercise_04() {
+    local dir="$EXERCISES_DIR"/04-mix-and-match
+    cp -r "$DEMO_DIR"/alice "$dir"
+    (
+        cd "$dir"
+        git checkout -b branch
+        sed -i 's/open(filename)/open(self.filename)/' main.py
+        sed -i 's/(filename)/(self)/' main.py
+        sed -i 's/^/    /' main.py
+        sed -i '1s/^/class FileManip:\n/' main.py
+        sed -i '2s/^/    def __init__(self, filename):\n        self.filename = filename\n\n/' main.py
+        git commit -am "Bob's OO code"
+        git checkout master
+        local alice; alice=$(cat <<EOF
+
+def count_lines(filename):
+    n = 0
+    with open(filename) as f:
+        for line in f:
+            n += 1
+    return n
+EOF
+                          )
+        echo "$alice" >> main.py
+        git commit -am "Alice's version"
+        git merge branch
+    )
+}
+
 prepare_demo
 prepare_exercise_01
 prepare_exercise_02
 prepare_exercise_03
+prepare_exercise_04
