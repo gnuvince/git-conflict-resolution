@@ -72,7 +72,23 @@ add_line() {
     printf "%s\n" "${ed_cmds[@]}" | ed -s "$filename"
 }
 
-prepare_exercise_1() {
+add_line_before() {
+    local filename="$1"
+    local line_before="$2"
+    local new_line="$3"
+
+    declare -a ed_cmds=(
+        /"$line_before"
+        i
+        "$new_line"
+        .
+        w
+        q
+    )
+    printf "%s\n" "${ed_cmds[@]}" | ed -s "$filename"
+}
+
+prepare_exercise_01() {
     local dir="$EXERCISES_DIR"/01-squash-commits
     cp -r "$DEMO_DIR"/alice "$dir"
     (
@@ -90,5 +106,21 @@ prepare_exercise_1() {
     )
 }
 
+prepare_exercise_02() {
+    local dir="$EXERCISES_DIR"/02-either-commit
+    cp -r "$DEMO_DIR"/alice "$dir"
+    (
+        cd "$dir"
+        git checkout -b branch
+        add_line_before main.py 'line ==' '            line = line.strip()'
+        git commit -am "Bob's version"
+        git checkout master
+        sed -i 's/line ==/line.strip() ==/' main.py
+        git commit -am "Alice's version"
+        git merge branch
+    )
+}
+
 prepare_demo
-prepare_exercise_1
+prepare_exercise_01
+prepare_exercise_02
