@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -o errexit
-
 : "${PLAYGROUND_DIR:=/tmp/playground}"
 : "${DEMO_DIR:=$PLAYGROUND_DIR/demo}"
 : "${EXERCISES_DIR:=$PLAYGROUND_DIR/exercises}"
@@ -121,6 +119,34 @@ prepare_exercise_02() {
     )
 }
 
+prepare_exercise_03() {
+    local dir="$EXERCISES_DIR"/03-either-commit
+    cp -r "$DEMO_DIR"/alice "$dir"
+    (
+        cd "$dir"
+        git checkout -b branch
+        local bob; bob=$(cat <<EOF
+
+def bobs_function():
+    return "Bob"
+EOF
+              )
+        echo "$bob" >> main.py
+        git commit -am "Bob's version"
+        git checkout master
+        local alice; alice=$(cat <<EOF
+
+def alices_function():
+    return "Alice"
+EOF
+                          )
+        echo "$alice" >> main.py
+        git commit -am "Alice's version"
+        git merge branch
+    )
+}
+
 prepare_demo
 prepare_exercise_01
 prepare_exercise_02
+prepare_exercise_03
