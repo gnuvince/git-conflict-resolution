@@ -13,7 +13,7 @@
 Demo
 ====
 
-1. How to rebase small commits into larger ones
+1 - How to rebase small commits into larger ones
 -----------------------------------------------
 
   The goal of rebasing small commits into larger ones it to make it
@@ -40,7 +40,7 @@ Demo
   7. reword and fixup
 
 
-2. Clean conflict — Keep either my version or the remote's version
+2 - Clean conflict — Keep either my version or the remote's version
 ------------------------------------------------------------------
 
   **Bob**:
@@ -69,7 +69,7 @@ Demo
   8. git rebase --continue
 
 
-3. Clean conflict — Keep both versions
+3 - Clean conflict — Keep both versions
 --------------------------------------
 
   **Bob**:
@@ -88,7 +88,9 @@ Demo
   5. CONFLICT
   6. Show that using meld we can't keep both changes
   7. Show how to fix conflict in text editor
-  8. git add main.py && git rebase --4. Dirty conflict
+  8. git add main.py && git rebase --
+
+4 - Dirty conflict
 -----------------
 
   **Bob**:
