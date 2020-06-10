@@ -120,7 +120,7 @@ prepare_exercise_02() {
 }
 
 prepare_exercise_03() {
-    local dir="$EXERCISES_DIR"/03-either-commit
+    local dir="$EXERCISES_DIR"/03-both-commits
     cp -r "$DEMO_DIR"/alice "$dir"
     (
         cd "$dir"
