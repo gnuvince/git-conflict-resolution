@@ -1,6 +1,6 @@
 #!/bin/bash
 
-: "${PLAYGROUND_DIR:=/tmp/playground}"
+: "${PLAYGROUND_DIR:=playground}"
 : "${DEMO_DIR:=$PLAYGROUND_DIR/demo}"
 : "${EXERCISES_DIR:=$PLAYGROUND_DIR/exercises}"
 
