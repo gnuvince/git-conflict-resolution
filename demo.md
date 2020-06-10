@@ -5,7 +5,10 @@
 * [X] Reminder to rebase on top of master often
 * [X] "Clean" conflict where I want either my version or the remote's version
 * [X] "Clean" conflict where I want both my version and the remote's version
-* [ ] "Dirty" conflict where I want to keep some of my stuff and some of the remote's stuff
+* [X] "Dirty" conflict where I want to keep some of my stuff and some of the remote's stuff
+* [ ] Cherry-picking
+* [ ] Stashing
+* [ ] git push --force-with-lease
 * [ ] theirs vs. ours
 
 -->
